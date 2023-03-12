@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include, re_path
-import rest_framework
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from rest_framework.authtoken.views import ObtainAuthToken
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('MealSystem.urls')),
 ]
+
+urlpatterns += staticfiles_urlpatterns()

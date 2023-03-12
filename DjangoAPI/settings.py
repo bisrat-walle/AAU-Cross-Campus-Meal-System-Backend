@@ -2,18 +2,24 @@
 from pathlib import Path
 from datetime import timedelta
 from django.conf import settings
+from pathlib import Path
+import dj_database_url
+
+
+from dotenv import load_dotenv
 
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / '.env')
 
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-SECRET_KEY = 'django-insecure-hi$tp^!ojv*t&lvws44)(^x7vxk-c7w$jvteb**ibk1n138&vr'
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
 
-
-DEBUG = True
-
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', "aau-meal-system.netlify.app"]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(' ')
 
 
 INSTALLED_APPS = [
@@ -65,14 +71,7 @@ WSGI_APPLICATION = 'DjangoAPI.wsgi.application'
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'meal',
-        'USER': 'root',
-        'PASSWORD': 'bisrat w',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
+    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'), conn_max_age=600),
 }
 
 
@@ -106,6 +105,7 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 REST_FRAMEWORK = {
