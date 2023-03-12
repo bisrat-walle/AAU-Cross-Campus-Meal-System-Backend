@@ -2,7 +2,7 @@
 
 set -o errexit  # exit on error
 
-yum install zbar
+apt-get install zbar tools -y
 
 pip install -r requirements.txt --use-pep517
 
