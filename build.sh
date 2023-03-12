@@ -2,8 +2,6 @@
 
 set -o errexit  # exit on error
 
-sudo apt-get install gunicorn3
-
 pip install -r requirements.txt
 
 python manage.py collectstatic --no-input
